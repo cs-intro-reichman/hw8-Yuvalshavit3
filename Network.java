@@ -59,13 +59,16 @@ public class Network {
      *  If any of the two names is not a user in this network,
      *  or if the "follows" addition failed for some reason, returns false. */
     public boolean addFollowee(String name1, String name2) {
-        if(this.getUser(name1) == null){
-            return false;
-        }
-        if(this.getUser(name2) == null){
+        if (name1 == null || name2 == null) {
             return false;
         }
         
+        if (this.getUser(name1) == null || this.getUser(name2) == null) {
+            return false;
+        }
+        if (name1.equals(name2)) {
+            return false;
+        }
         return this.getUser(name1).addFollowee(name2);
     }
     
@@ -91,6 +94,9 @@ public class Network {
     public String mostPopularUser() {
         int maxNumOfFollowers = 0;
         User mostPopular = null;
+        if(userCount == 0){
+            return null;
+        }
         for(int i = 0; i < userCount; i++){
             if(followeeCount(users[i].getName()) > maxNumOfFollowers){
                 maxNumOfFollowers = followeeCount(users[i].getName());

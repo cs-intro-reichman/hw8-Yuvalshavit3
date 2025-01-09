@@ -45,7 +45,7 @@
     public boolean follows(String name) {
         int arrlength = this.follows.length;
         for(int i = 0; i < arrlength; i ++){
-            if(name.equals(this.follows[i])){
+            if(this.follows[i] != null && name.equalsIgnoreCase(this.follows[i])){
                 return true;
             }
         }
@@ -54,8 +54,10 @@
     /** Makes this user follow the given name. If successful, returns true. 
      *  If this user already follows the given name, or if the follows list is full, does nothing and returns false; */
     public boolean addFollowee(String name) {
-        if(this.follows(name)){
-            return false;
+        for (int i = 0; i < this.fCount; i++) {
+            if (this.follows[i] != null && this.follows[i].equalsIgnoreCase(name)) {
+                return false;
+            }
         }
         if(this.getfCount() == 10){
             return false;
